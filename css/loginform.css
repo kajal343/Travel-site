@@ -63,9 +63,10 @@ header{
     color: #fff; */
      /* user-select: none;
     background-image: url(Screenshot\ 2023-10-07\ 013106.png);  */
-    height: 60px;
-    width: 130px;
-    border-radius: 20px;
+    margin-top: 10px;
+    height: 45px;
+    width: 160px;
+    border-radius: 10px;
 } 
 .navigation a{
     position: relative;
