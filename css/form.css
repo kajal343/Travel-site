@@ -24,21 +24,21 @@ body{
 }
 
 .form{
-     width: 400px;
+     /* width: 400px;
     height: auto;
     color: #fff;
-    font-family: 'roboto', sans-serif;
-    /* position: relative;
+    font-family: 'roboto', sans-serif; */
+     position: relative;
     width: 400px;
     height: 415px;
     border: 2px solid rgba(255,255,255,.5);
     border-radius: 20px;
-    backdrop-filter: blur(15px); */
-    /* box-shadow:0 0 30px rgba(0,0,0,.5) ;
+    backdrop-filter: blur(15px); 
+    box-shadow:0 0 30px rgba(0,0,0,.5) ;
     margin-top: 20px;
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;  */
+    align-items: center;  */ 
     /* overflow: hidden;
     transform: scale(0);
     transition:transform .5s ease,height .2s ease; */
