@@ -3,11 +3,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-*:focus{
-    outline: none;
-}
-
 body{
     position: relative;
     width: 100%;
@@ -17,17 +12,15 @@ body{
     justify-content: center;
     align-items: center;
     background-image: url(pexels-jatin-verma-14247658.jpg);
-    /* background: url('picturesw/pexels-jatin-verma-14247658.jpg'); */
     background-size: cover;
     background-position: center;
     font-family: 'roboto', sans-serif;
 }
 
 .form{
-     /* width: 400px;
-    height: auto;
-    color: #fff;
-    font-family: 'roboto', sans-serif; */
+    
+    /* color: #fff; */
+    font-family: 'roboto', sans-serif;
      position: relative;
     width: 400px;
     height: 415px;
@@ -36,12 +29,7 @@ body{
     backdrop-filter: blur(15px); 
     box-shadow:0 0 30px rgba(0,0,0,.5) ;
     margin-top: 20px;
-    /* display: flex;
-    justify-content: center;
-    align-items: center;  */ 
-    /* overflow: hidden;
-    transform: scale(0);
-    transition:transform .5s ease,height .2s ease; */
+   
 }
 
 .heading{
@@ -51,6 +39,7 @@ body{
     font-size: 80px;
     font-weight: 300;
     margin-bottom: 50px; */
+    padding-top: 30px;
     font-size: 2em;
     color:#162938 ;
     text-align: center;
@@ -59,22 +48,26 @@ body{
 input,
 .submit-btn{
     opacity: 0;
-    width: 80%;
-    height: 35px;
+    width: 82%;
+    height: 40px;
     display: block;
     margin: 20px auto;
     border-radius: 5px;
     background: rgba(255, 255, 255, 0.3);
-    border: none;
+    /* border: none; */
     color: #fff;
     padding: 15px;
     transition: .5s;
-    text-transform: capitalize;
+    text-transform: capitalize; 
+    position: relative;
+    border-bottom: 2px solid #162938;
+    /* margin: 30px 0; */
+                                                
 }
 
 input::placeholder{
     color: #fff;
-}
+} 
 
 input:focus,
 .submit-btn:hover{
@@ -82,7 +75,7 @@ input:focus,
     color: #000;
 }
 
-input:focus::placeholder{
+input::placeholder{
     color: #000;
 }
 
@@ -108,7 +101,7 @@ input:focus::placeholder{
 }
 
 .alert-box{
-    position: absolute;
+    /* position: absolute;
     top: -100%;
     left: 50%;
     transform: translateX(-50%);
@@ -125,5 +118,27 @@ input:focus::placeholder{
     color: #fff;
     font-family: 'roboto', sans-serif;
     text-align: center;
-    transition: 1s;
+    transition: 1s; */
 }
+.icon-close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background-color: #162938;
+    font-size: 1.7em;
+    color:#fff;
+    display: flex;
+    justify-content: center;
+    border-top-right-radius:16px ;
+    cursor: pointer;
+    z-index: 1;
+} 
+/* .input-box .icon{
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    color: #162936;
+    line-height: 40px;
+} */

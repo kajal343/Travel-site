@@ -6,43 +6,9 @@
     font-family: 'Poppins',sans-serif;
 }
 body{
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; */
-    /* background-color: rgb(238, 171, 182); */
-    /* background: url(pexels-jatin-verma-14247658.jpg) no-repeat;
-    background-size:cover ;
-    background-position: center; */
-    /* transform: 5s;
-    animation-name: change;
-    animation-direction: alternate-reverse;
-    animation-duration: 20s;
-    animation-iteration-count: infinite;
-    animation-fill-mode: forwards;
-    animation-play-state: running; */
-    /* animation-delay: 5s; */
+   
 
     }
-
-/* @keyframes change {
-0%{
-    background-image: url(istockphoto-1127479843-612x612.jpg)
-}
-25%{
-    background-image: url(Featured-770x531.jpg) ;    
-}
-50%{
-    background-image: url(pictures/vi6.jpg) ;
-}
-75%{
-    background-image: url(pictures/vi7.jpg) ;
-}
-100%{
-    background-image: url(pictures/vi8.jpg) ;
-} */
-
-/* } */
 header{
     height: 60px;
     position: fixed;
@@ -64,7 +30,7 @@ header{
      /* user-select: none;
     background-image: url(Screenshot\ 2023-10-07\ 013106.png);  */
     margin-top: 10px;
-    height: 45px;
+    height: 55px;
     width: 160px;
     border-radius: 10px;
 } 
@@ -74,7 +40,7 @@ header{
     color: rgb(243, 238, 236);
     text-decoration: none;
     font-weight: 500;
-    margin-left: 40px;
+    margin-left: 30px;
 }
 .navigation a::after{
     content: '';
@@ -122,7 +88,7 @@ header{
     background-size:cover ;
     background-position: center;
 }
-.wrapper{
+/* .wrapper{
     position: relative;
     width: 400px;
     height: 415px;
@@ -163,8 +129,8 @@ header{
 .wrapper.active .form-box.register{
     transition: none;
     transform: translateX(0px);
-}
-.form-box h2{
+} */
+/* .form-box h2{
     font-size: 2em;
     color:#162938 ;
     text-align: center;
@@ -258,11 +224,12 @@ header{
     border-bottom-left-radius:16px ;
     cursor: pointer;
     z-index: 1;
-}
+} */
 .title {
-    height: 300px;
+    height: 400px;
     background-color:rgb(226, 120, 88) ;
     text-align: center;
+    padding-top:30px ;
 }
 .title h1{
     
@@ -319,8 +286,8 @@ header{
     align-items: center;
 }
 .img{
-    height: 250px;
-    width: 280px;
+    height: 230px;
+    width: 250px;
     box-shadow: 0 0 20px 20px rgba(0,0,0,.1);
     background-repeat: no-repeat;
     background-size:cover ;
@@ -328,13 +295,13 @@ header{
     transition: 1s;
 }
 .img1{
-    background-image:url(pexels-rahul-pandit-13062114.jpg) ;
+    background-image:url(picturesw/jantar-mantar-jaipur-entry-fee-timings-holidays-reviews-header.jpg) ;
 }
 .img2{
-    background-image: url(pexels-sagar-soneji-3581369.jpg);
+    background-image: url(picturesw/32.jpg);
 }
 .img3{
-    background-image: url(istockphoto-1127479843-612x612.jpg);
+    background-image: url(picturesw/places-to-visit-in-jaipur.jpg);
 } 
 .img:hover{
     transform: scale(1.1);
