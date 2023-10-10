@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/static/loginform.css">
+	<title>Jaipur Unveiled</title>
+</head>
+<body>
+	<header>
+		<h2 class="logo"><img src="/static/Screenshot 2023-10-09 214504.png" alt=""></h2>
+		<nav class="navigation">
+			<a href="#">Home</a>
+			<a href="#">Discover</a>
+			<a href="#">Themes</a>
+			<a href="#">Go to map</a>
+			<a href="/login"><button class="butlogin">Login</button></a>
+		</nav>
+	</header>
+	 <div class="start">
+		<div class="wrapper">
+			<span class="icon-close"><ion-icon name="close"></ion-icon></span>
+			<div class="form-box login">
+				<h2>Login</h2>
+				<form action="/login" method="POST"></form>
+					<div class="input-box">
+						<span class="icon"><ion-icon name="person"></ion-icon></span>
+						<input type="text" placeholder="Username">
+					</div>
+					<div class="input-box password">
+						<span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+						<input type="password" placeholder="Password" required>
+					</div>
+					<div class="remember-forgot">
+						<label><input type="checkbox">Remember me</label>
+						<a href="#">Forgot Password</a>
+					</div>
+					<button type="submit" class="btn">Login</button>
+					<div class="login-register">
+						<p>Don't have an account?<a href="/register" class="register-link">Register</a></p>
+					</div>
+				</form>
+			</div>
+			<span class="icon-close"><ion-icon name="close"></ion-icon></span>
+			<div class="form-box register">
+				<h2>Registration</h2>
+				<form action="/register" method="POST"></form>
+					<div class="input-box">
+						<span class="icon"><ion-icon name="person"></ion-icon></span>
+						<input type="text" placeholder="Username">
+					</div>
+					<div class="input-box">
+						<span class="icon"><ion-icon name="mail"></ion-icon></span>
+						<input type="email" placeholder="Email">
+						
+					</div>
+					<div class="input-box">
+						<span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+						<input type="password" placeholder="Password" required>
+						
+					</div>
+					
+					<button type="submit" class="btn">Register</button>
+					<div class="login-register">
+						<p>Already have an account?<a href="#" class="login-link">Login</a></p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div> 
+	<div class="title">
+		<h1>Jaipur</h1>
+		<p>Welcome to the enchanting city of Jaipur, a jewel in the crown of Rajasthan, India. Known as the "Pink City" due to its stunning pink-hued architecture, Jaipur is a vibrant blend of history, culture, and modernity. From its majestic forts and palaces to its bustling markets and delectable cuisine, Jaipur offers a rich tapestry of experiences for every traveler. Join us on a journey through this mesmerizing destination, where tradition meets contemporary living, and where the past comes alive in a kaleidoscope of colors and flavors. Discover the magic of Jaipur, where every street corner tells a story, and every visit leaves an indelible mark on your heart.</p>
+	</div>
+	<div class="live-event">
+		<span class="icon1"><ion-icon name="play"></ion-icon></ion-icon></span>
+		<h2>Title</h2>
+	</div>
+	<div class="box-img">
+		<div class="img img1"></div>
+		<div class="img img2"></div>
+		<div class="img img3"></div>
+	</div>
+	<div class="end"></div>
+	
+	<script src="/static/loginform.js"></script>
+	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+	<script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
