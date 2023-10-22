@@ -1,6 +1,12 @@
 from flask import Flask, request,render_template, redirect,session, flash, get_flashed_messages
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
+from pymongo import MongoClient
+
+from bson import json_util as json
+
+client = MongoClient('mongodb://localhost:27017/')
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -78,6 +84,21 @@ def login():
     return render_template('login.html')
 
 
+@app.route('/place/<placename>')
+def show_user_profile(placename):
+    # show the user profile for that user
+    
+
+    filter={
+        'POIs': placename
+    }
+
+    result = client['vibrantindia']['places'].find_one(
+    filter=filter
+    )
+    data=(json.loads(json.dumps(result)))
+    print(placename)
+    return render_template("place.html", data = data)
 
 @app.route('/dashboard')
 def dashboard():
