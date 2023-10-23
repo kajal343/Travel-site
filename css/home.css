@@ -17,7 +17,6 @@ header{
     width: 100%;
     padding: 20px 10px;
     background-color:rgba(44, 21, 21, 0.597);
-    /* background-color: rgb(226, 89, 48); */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -25,23 +24,106 @@ header{
 
 }
 .logo img{
-    /* font-size: 2em;
-    color: #fff; */
-     /* user-select: none;
-    background-image: url(Screenshot\ 2023-10-07\ 013106.png);  */
     margin-top: 10px;
     height: 55px;
     width: 160px;
     border-radius: 10px;
 } 
+ul{
+    list-style: none;
+}
+ul li{
+    display: inline-block;
+    position: relative;
+    
+}
+ul li a{
+    display: block;
+    padding: 20px 25px;
+    color: rgb(243, 238, 236);
+    text-decoration: none;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+ul li ul.submenu li {
+    display: block;
+    /* visibility: hidden; */
+}
+ul li ul.submenu{
+    width: 100%;
+    position: absolute;
+    background-color:rgba(44, 21, 21, 0.597);
+    z-index: 999;
+    display: none;
+}
+ul li:hover ul.submenu{
+    display: block;
+    width: 100%;
+}
+.submenu a{
+    height: 60px;
+    border: 2px solid #fff;
+}
+
+.navigation a::after{
+    content: '';
+    position: absolute;
+    left: 17px;
+    bottom: 14px;
+    width: 75%;
+    height: 3px;
+    background:#fff ;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+.navigation a:hover::after{
+    transform-origin: left;
+    transform: scaleX(1);
+
+}
+.navigation button{
+    width: 130px;
+    height: 40px;
+    color:#fff ;
+    background:transparent ;
+    border:2px solid #fff ;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-left: 40px;
+    transform: .5s;
+}
+.navigation button:hover{
+    background-color: #fff;
+    color:#162936 ;
+}
+
+/* .navigation li {
+   float: left;
+   position: relative;
+   width: auto;
+   text-decoration: none;
+
+}
+.navigation ul{
+    list-style:  none;
+
+}
 .navigation a{
     position: relative;
     font-size: 1.1em;
     color: rgb(243, 238, 236);
+    display: block;
     text-decoration: none;
     font-weight: 500;
     margin-left: 30px;
+    
 }
+
 .navigation a::after{
     content: '';
     position: absolute;
@@ -77,6 +159,31 @@ header{
     background-color: #fff;
     color:#162936 ;
 }
+#submenu{
+    left: 0;
+    position: absolute;
+    opacity: 0;
+    top: 80px;
+    visibility: hidden;
+    z-index: 1;
+}
+li:hover ul#submenu{
+    opacity: 1;
+    top: 40px;
+    visibility: visible;
+
+}
+#submenu li{
+    float: none;
+    width: 100%;
+}
+#submenu a:hover{
+    background-color: bisque;
+
+}
+#submenu a{
+    background-color: transparent;
+} */
 .start{
     position: relative;
     display: flex;
@@ -84,147 +191,11 @@ header{
     align-items: center;
     height:800px;
     /* width: 656px; */
-    background: url(picturesw/pexels-jatin-verma-14247658.jpg) no-repeat;
+    background: url(pexels-jatin-verma-14247658.jpg) no-repeat;
     background-size:cover ;
     background-position: center;
 }
-/* .wrapper{
-    position: relative;
-    width: 400px;
-    height: 415px;
-    border: 2px solid rgba(255,255,255,.5);
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    box-shadow:0 0 30px rgba(0,0,0,.5) ;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    transform: scale(0);
-    transition:transform .5s ease,height .2s ease;
-}
-.wrapper.active-popup{
-    transform: scale(1);
-}
-.wrapper.active{
-    height: 450px;
-}
-.wrapper .form-box{
-    width: 100%;
-    padding: 40px;
-}
-.wrapper .form-box.login{
-    transition: transform .18s ease ;
-    transform: translateX(0);
-}
-.wrapper.active .form-box.login{
-    transition: none;
-    transform:translateX(-400px);
-}
-.wrapper .form-box.register{
-    position: absolute;
-    transition: none;
-    transform: translateX(400px);
-}
-.wrapper.active .form-box.register{
-    transition: none;
-    transform: translateX(0px);
-} */
-/* .form-box h2{
-    font-size: 2em;
-    color:#162938 ;
-    text-align: center;
 
-}
-.input-box{
-    position: relative;
-    width: 100%;
-    height: 50px;
-    border-bottom: 2px solid #162938;
-    margin: 30px 0;
-}
-
-.input-box input{
-    width: 100%;
-    height: 80%;
-    background:rgb(246, 203, 210) ;
-    border: none;
-    outline: none;
-    font-weight: 500;
-    font-size: .8em;
-    color: #404240 ;
-    padding: 0 35px 0 5px;
-}
-
-.input-box .icon{
-    position: absolute;
-    right: 8px;
-    font-size: 1.2em;
-    color: #162936;
-    line-height: 40px;
-}
-.remember-forgot{
-    font-size:.9em;
-    color: #d88647; 
-    font-weight: 500;
-    margin: -15px 0 15px;
-    display: flex;
-    justify-content:space-between ;
-}
-.remember-forgot label input{
-    accent-color:#d88647;
-    margin-right: 3px;
-
-}
-.remember-forgot a{
-    color:#d88647;
-    text-decoration: none;
-}
-.remember-forgot a:hover{
-    text-decoration: underline;    
-}
-.btn{
-    width: 100%;
-    height: 45px;
-    background-color:#100f0f;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    color: #fff;
-    font-weight: 500;
-}
-.login-register{
-    font-size: .9em;
-    color: #d88647;
-    text-align: center;
-    font-weight: 450;
-    margin: 22px 0;
-}
-.login-register p a{
-    color: #d88647;
-    text-decoration: none;
-    font-weight: 550;
-}
-.login-register p a:hover{
-    text-decoration:underline;    
-}
-.wrapper .icon-close{
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 30px;
-    height: 30px;
-    background-color: #162938;
-    font-size: 1.7em;
-    color:#fff;
-    display: flex;
-    justify-content: center;
-    border-bottom-left-radius:16px ;
-    cursor: pointer;
-    z-index: 1;
-} */
 .title {
     height: 400px;
     background-color:rgb(226, 120, 88) ;
@@ -254,9 +225,9 @@ header{
 }
 .live-event{
     display: flex;
-    height: 70px;
-    padding: 10px;
-    background-color:rgb(226, 120, 88) ;
+    height: 60px;
+    padding:10px 0px 0px 100px;
+    background-color:rgb(222, 134, 108) ;
     text-align: center;
     border: 1px solid black;
     border-style: groove;
