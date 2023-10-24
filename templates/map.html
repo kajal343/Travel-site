@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+
+    <style>
+
+    </style>
+
+</head>
+<body>
+    <div id='map' style='width: 1000px; height: 800px;'></div>
+</body>
+
+
+
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYW51cmFnMjciLCJhIjoiY2xudzQyd3EzMDZzeDJqbnc5dm5zeW5ociJ9.SJS1gvr5D_yJLfBVxOHEhA';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/anurag27/clnyni4cz009u01qxdd52d1wq',
+    center: [75.827, 26.959],
+    zoom: 8
+
+  });
+
+  
+  // Enable geolocation
+if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var userLocation = [position.coords.longitude, position.coords.latitude];
+        
+        // Create a marker for the user's location
+        var marker = new mapboxgl.Marker()
+            .setLngLat(userLocation)
+            .addTo(map);
+    });
+} else {
+    alert("Geolocation is not available on this device.");
+}
+
+
+
+
+
+
+
+const popup = new mapboxgl.Popup({
+closeButton: false,
+closeOnClick: false,
+className: 'custom-popup', // Assign your custom CSS class here
+
+});
+
+    // Replace 'my-layer' with the name of your layer
+    map.on('mouseenter', 'merged-dataset-with-url-ceonxs', function (e) {
+        // Change the cursor style to indicate interactivity
+        map.getCanvas().style.cursor = 'pointer';
+
+        // Get the feature that was hovered over
+        var feature = e.features[0];
+
+        // Create a popup with the feature's information
+       popup.setLngLat(feature.geometry.coordinates)
+            .setHTML(
+                `<h3>${feature.properties.POIs}</h3><img src="${feature.properties.URL}" height="100" width="200"/><p>${feature.properties.INFO}</p>`
+            )
+            .addTo(map);
+    });
+
+    map.on('mouseleave', 'merged-dataset-with-url-ceonxs', function () {
+    popup.remove(); // Remove the popup if it exists
+        
+    });
+
+
+
+</script>
+</html>
