@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: bisque;
+}
+.maps{
+    width:800px;
+    height: 600px;
+    background-color: aliceblue;
+    border: 2px solid rgba(255,255,255,.5);
+    border-radius: 20px;
+    backdrop-filter: blur(15px); 
+    box-shadow:0 0 30px rgba(0,0,0,.5) ;
+    margin-top: 40px;
+    margin-left: 350px;
+}
+.icon-close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background-color: #162938;
+    font-size: 1.7em;
+    color:#fff;
+    display: flex;
+    justify-content: center;
+    border-top-right-radius:16px ;
+    cursor: pointer;
+    z-index: 1;
+}
+.returnToCoordinatesButton {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 10px;
+    background-color: #0074D9;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

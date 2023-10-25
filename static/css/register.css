@@ -1,0 +1,39 @@
+.start{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:800px;
+    /* width: 656px; */
+    background: url(/static/images/others/jaipur-2.jpg) no-repeat;
+    backdrop-filter: blur(50px);
+    background-size:cover ;
+    background-position: center;
+}
+.form{
+    
+    /* color: #fff; */
+    font-family: 'roboto', sans-serif;
+     position: relative;
+    width: 400px;
+    height: 415px;
+    border: 2px solid rgba(255,255,255,.5);
+    border-radius: 20px;
+    backdrop-filter: blur(15px); 
+    box-shadow:0 0 30px rgba(0,0,0,.5) ;
+    margin-top: 20px;
+   
+}
+  
+.heading{
+    padding-top: 30px;
+    font-size: 2em;
+    color:#edc97c ;
+    text-align: center;
+}
+input::placeholder{
+    color: #000;
+}
+.link:hover{
+    color: #fff;
+}
