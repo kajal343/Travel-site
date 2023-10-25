@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Discover</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        *{
+            background-color: bisque;
+        }
+      .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+      }
+      
+    </style>
+  </head>
+
+  <body>
+    <!-- hotels -->
+    <div style="padding: 50px 50px 0 50px;">
+      <h2>Select Hotel</h2>
+      <form method="POST" action="{{ url_for('recommend_hotels') }}">
+        <div class="row mb-5">
+          <div class="col">
+            <label class="form-label">Minimum Price</label>
+            <input type="number" class="form-control" name="min-price" style="width: 150px;" placeholder="Rs." value="{{ min_price }}">
+          </div>
+          <div class="col">
+            <label class="form-label">Maximum Price</label>
+            <input type="number" class="form-control" name="max-price" style="width: 150px;" placeholder="Rs." value="{{ max_price }}">
+          </div>
+          <div class="col">
+            <label class="form-label">Number</label>
+            <input type="number" class="form-control" name="top-n" style="width: 150px;" placeholder="" value="{{ top_n }}">
+          </div>
+          <div class="col" style="padding-top: 2%;">
+            <input type="submit" class="btn btn-primary myButton" value="   Submit   " >
+          </div>
+      </form>
+    
+     <div style="padding-top: 30px;">
+       {% if trigger %}
+       
+          <div class="article">
+            <h5>{{ hotels }}</h5>
+          </div>
+
+        {% else %}
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+
+              {% for hotel in hotels %}
+              
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ hotel[0] }}</h5>
+                      <p class="card-text">Price: ₹{{ hotel[1] }}</p>
+                      <a href="{{ hotel[2] }}" target="_blank" class="btn btn-primary">Open in Google Maps</a>
+                    </div>
+                  </div>
+                </div>
+
+              {% endfor %}  
+
+          </div>
+
+        {% endif %}
+
+     </div>
+    </div>
+
+    </body>
+  </html>

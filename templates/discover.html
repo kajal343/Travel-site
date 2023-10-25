@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Discover</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+      .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- hotels -->
+    <div style="padding: 50px 50px 0 50px;">
+      <h2>Select Hotel</h2>
+      <form method="POST" action="{{ url_for('recommend_hotels') }}">
+        <div class="row mb-5">
+          <div class="col">
+            <label class="form-label">Minimum Price</label>
+            <input type="number" class="form-control" name="min-price" style="width: 150px;" placeholder="Rs." value="{{ min_price }}">
+          </div>
+          <div class="col">
+            <label class="form-label">Maximum Price</label>
+            <input type="number" class="form-control" name="max-price" style="width: 150px;" placeholder="Rs." value="{{ max_price }}">
+          </div>
+          <div class="col">
+            <label class="form-label">Number</label>
+            <input type="number" class="form-control" name="top-n" style="width: 150px;" placeholder="" value="{{ top_n }}">
+          </div>
+          
+          <div class="col" style="padding-top: 3%;">
+            <input type="submit" class="btn btn-primary myButton" value="   Submit   " >
+          </div>
+      </form>
+    
+      {% if trigger %}
+          <div class="article">
+            <h5>{{ hotels }}</h5>
+          </div>
+      {% else %}
+        <div class="article">
+          <ol>
+            {% for hotel in hotels %}
+              <li>
+                  <h6>{{ hotel[0] }}
+                  <p>Price: ₹{{ hotel[1] }}<br>
+                  <a href="{{ hotel[2] }}" target="_blank"><i>Open in Google Maps</i></h2></a>
+                  </p>
+                  <hr>
+              </li>
+            {% endfor %}  
+          </ol>
+        </div>
+      {% endif %}
+
+    </div>
+
+    <!-- places -->
+    <div>
+      <form method="POST" action="{{ url_for('recommend_places') }}">
+        <br>
+        <h2>Select Place</h2>
+        <div class="row mb-5">
+          <div class="col">
+            <label class="form-label">Preferences</label><br>
+            <select class="form-input align-center" name="preferences">
+              <option value="History and Culture Museum">History and Culture Museum</option>
+              <option value="History and Culture -">History and Culture</option>
+              <option value="Museum History and Culture">Museum History and Culture</option>
+              <option value="Religious Local Experiences">Religious Local Experiences</option>
+              <option value="History and Culture Scenic">History and Culture Scenic</option>
+              <option value="Scenic History and Culture">Scenic History and Culture</option>
+              <option value="Scenic -">Scenic</option>
+              <option value="Religious History and Culture">Religious History and Culture</option>
+              <option value="Scenic Adventure">Scenic Adventure</option>
+              <option value="History and Culture Local Experiences">History and Culture Local Experiences</option>
+              <option value="Shows and Concerts Local Experiences">Shows and Concerts Local Experiences</option>
+              <option value="Shows and Concerts -">Shows and Concerts</option>
+              <option value="Museum -">Museum</option>
+              <option value="Adventure Scenic">Adventure Scenic</option>
+              <option value="Shopping Food and Drinks">Shopping Food and Drinks</option>
+              <option value="Local Experiences Scenic">Local Experiences Scenic</option>
+              <option value="Food and Drinks Shopping">Food and Drinks Shopping</option>
+              <option value="Shopping -">Shopping</option>
+              <option value="Religious Scenic">Religious Scenic</option>
+              <option value="Adventure -">Adventure</option>
+              <option value="Adventure Shopping">Adventure Shopping</option>
+              <option value="Local Experiences History and Culture">Local Experiences History and Culture</option>
+              <option value="Religious -">Religious</option>
+              <option value="Shopping Shows and Concerts">Shopping Shows and Concerts</option>
+              <option value="Local Experiences -">Local Experiences</option>
+            </select><br>
+          </div>
+          <div class="col">
+            <label class="form-label">Number</label>
+            <input type="number" class="form-control" name="top-n" style="width: 150px;" placeholder=""  value="{{ top_n  }}">
+          </div>
+          <div class="col" style="padding-top: 3%;">
+            <input type="submit" class="btn btn-primary myButton" value="   Submit   ">
+          </div>
+      </form>
+
+      {% if trigger %}
+        <div class="article">
+          <h2>{{ places }}</h2>
+        </div>
+      {% else %}
+        <div class="article">
+          <ol>
+            {% for place in places %}
+              <li>
+                  <h6>{{ place[0] }} (<a href="{{ place[2] }}" target="_blank"><i>Open in Google Maps</i></a>)</h6>
+                  <p>{{ place[1] }}</p>
+                  
+                  <a href="{{ place[2] }}"><img src="{{ place[3] }}" alt="hotel-image" class="center"></a>
+                  </p>
+                  <hr>
+              </li>
+            {% endfor %}
+          </ol> 
+        </div>
+      {% endif %}
+    </div>
+
+
+    <!-- restaurant  -->
+    <div>
+      <h2>Select Restaurant</h2>
+      <form method="POST" action="{{ url_for('recommend_restaurants') }}">
+        <div class="row mb-5">
+          <div class="col">
+            <label class="form-label">Category</label>
+            <select class="form-input align-center" name="category">
+              <option value="Casual Dining ">Casual Dining </option>
+              <option value="Quick Bites ">Quick Bites </option>
+              <option value="CAFÉ ">CAFÉ</option>
+              <option value="Casual Dining, Bar ">Casual Dining, Bar</option>
+              <option value="CAFÉ, Dessert Parlor ">CAFÉ, Dessert Parlor</option>
+              <option value="Dhaba ">Dhaba</option>
+              <option value="Sweet Shop, Quick Bites ">Sweet Shop, Quick Bites</option>
+              <option value="Bhojanalya ">Bhojanalya</option>
+              <option value="Beverage Shop, Quick Bites ">Beverage Shop, Quick Bites</option>
+              <option value="Food Truck ">Food Truck</option>
+              <option value="Food Court ">Food Court</option>
+              <option value="Dessert Parlor ">Dessert Parlor</option>
+              <option value="Lounge ">Lounge</option>
+              <option value="Sweet Shop, Casual Dining ">Sweet Shop, Casual Dining</option>
+              <option value="Dessert Parlor, Quick Bites ">Dessert Parlor, Quick Bites</option>
+              <option value="Quick Bites, Quick Bites ">Quick Bites, Quick Bites</option>
+              <option value="Dessert Parlor, Beverage Shop ">Dessert Parlor, Beverage Shop</option>
+              <option value="Beverage Shop ">Beverage Shop</option>
+              <option value="CAFÉ, Casual Dining ">CAFÉ, Casual Dining</option>
+              <option value="Bakery, Quick Bites ">Bakery, Quick Bites</option>
+              <option value="CAFÉ, Bakery ">CAFÉ, Bakery</option>
+              <option value="CAFÉ, Quick Bites ">CAFÉ, Quick Bites</option>
+              <option value="Bakery ">Bakery</option>
+              <option value="Quick Bites, Bakery ">Quick Bites, Bakery</option>
+              <option value="Fine Dining ">Fine Dining</option>
+              <option value="Kiosk ">Kiosk</option>
+              <option value="Casual Dining, CAFÉ ">Casual Dining, CAFÉ</option>
+              <option value="Casual Dining, Lounge ">Casual Dining, Lounge</option>
+              <option value="Bakery, CAFÉ ">Bakery, CAFÉ</option>
+              <option value="Quick Bites, Sweet Shop ">Quick Bites, Sweet Shop</option>
+              <option value="Quick Bites, Fine Dining ">Quick Bites, Fine Dining</option>
+              <option value="Bar, Casual Dining ">Bar, Casual Dining</option>
+              <option value="Meat Shop ">Meat Shop</option>
+              <option value="Quick Bites, Meat Shop ">Quick Bites, Meat Shop</option>
+              <option value="Quick Bites, Beverage Shop ">Quick Bites, Beverage Shop</option>
+              <option value="Casual Dining, Sweet Shop ">Casual Dining, Sweet Shop</option>
+              <option value="Sweet Shop ">Sweet Shop</option>
+              <option value="Mess ">Mess</option>
+              <option value="Food Court, Sweet Shop ">Food Court, Sweet Shop</option>
+              <option value="Quick Bites, Dessert Parlor ">Quick Bites, Dessert Parlor</option>
+              <option value="Sweet Shop, Bakery ">Sweet Shop, Bakery</option>
+              <option value="Beverage Shop, Dessert Parlor ">Beverage Shop, Dessert Parlor</option>
+              <option value="Lounge, Casual Dining ">Lounge, Casual Dining</option>
+              <option value="Food Court, Quick Bites ">Food Court, Quick Bites</option>
+            </select>
+          </div>
+          <div class="col">
+            <label class="form-label">Veg / Non-veg</label>
+            <select class="form-input align-center" name="is-veg">
+              <option value="yes">Veg</option>
+              <option value="no">Non-veg</option>
+            </select>
+          </div>
+
+          <div class="col">
+            <label class="form-label">Max Price</label>
+            <input type="number" class="form-control" name="max-cost" style="width: 150px;" placeholder="Rs." value="{{ max_cost }}">
+          </div>
+          
+          <div class="col">
+            <label class="form-label">Cuisine</label>
+            <select class="form-input align-center" name="cuisine">
+              <option value="North Indian, Fast Food">North Indian, Fast Food</option>
+              <option value="Fast Food">Fast Food</option>
+              <option value="North Indian, Mughlai, Chinese, Fast Food">North Indian, Mughlai, Chinese, Fast Food</option>
+              <option value="Cafe">Cafe</option>
+              <option value="North Indian, Continental, Chinese">North Indian, Continental, Chinese</option>
+              <option value="North Indian, Fast Food, Chinese">North Indian, Fast Food, Chinese</option>
+              <option value="North Indian, Mughlai">North Indian, Mughlai</option>
+              <option value="North Indian, South Indian, Fast Food, Chinese, Street Food">North Indian, South Indian, Fast Food, Chinese, Street Food</option>
+              <option value="Street Food, Fast Food, North Indian, Beverages">Street Food, Fast Food, North Indian, Beverages</option>
+              <option value="Cafe, Desserts, North Indian, Chinese, Frozen Yogurt">Cafe, Desserts, North Indian, Chinese, Frozen Yogurt</option>
+              <option value="North Indian">North Indian</option>
+              <option value="Healthy Food, Fast Food, North Indian, Street Food">Healthy Food, Fast Food, North Indian, Street Food</option>
+              <option value="South Indian, Chinese, North Indian">South Indian, Chinese, North Indian</option>
+              <option value="North Indian, Rajasthani">North Indian, Rajasthani</option>
+              <option value="North Indian, Chinese, Fast Food, Beverages">North Indian, Chinese, Fast Food, Beverages</option>
+              <option value="Mithai, North Indian, South Indian, Street Food, Chinese">Mithai, North Indian, South Indian, Street Food, Chinese</option>
+              <option value="South Indian, Fast Food, Beverages">South Indian, Fast Food, Beverages</option>
+              <option value="Beverages, Fast Food">Beverages, Fast Food</option>
+              <option value="Mughlai">Mughlai</option>
+              <option value="Biryani, North Indian">Biryani, North Indian</option>
+              <option value="North Indian, Hyderabadi">North Indian, Hyderabadi</option>
+              <option value="Hyderabadi">Hyderabadi</option>
+              <option value="North Indian, Biryani">North Indian, Biryani</option>
+              <option value="North Indian, Finger Food">North Indian, Finger Food</option>
+              <option value="North Indian, Chinese, Mughlai, Fast Food, Biryani">North Indian, Chinese, Mughlai, Fast Food, Biryani</option>
+              <option value="North Indian, Chinese">North Indian, Chinese</option>
+              <option value="South Indian, Andhra">South Indian, Andhra</option>
+              <option value="South Indian">South Indian</option>
+              <option value="Rajasthani, North Indian">Rajasthani, North Indian</option>
+              <option value="North Indian, Street Food">North Indian, Street Food</option>
+              <option value="Ice Cream, Desserts">Ice Cream, Desserts</option>
+              <option value="Fast Food, Italian, Continental, Chinese">Fast Food, Italian, Continental, Chinese</option>
+              <option value="Finger Food, North Indian">Finger Food, North Indian</option>
+              <option value="Mithai, North Indian, Chinese, South Indian, Continental">Mithai, North Indian, Chinese, South Indian, Continental</option>
+              <option value="Cafe, Fast Food, Coffee">Cafe, Fast Food, Coffee</option>
+              <option value="Cafe, Italian, Fast Food, Continental, Lebanese">Cafe, Italian, Fast Food, Continental, Lebanese</option>
+              <option value="Desserts, Fast Food, Beverages">Desserts, Fast Food, Beverages</option>
+              <option value="Chinese, Italian">Chinese, Italian</option>
+              <option value="Mexican, Asian, Chinese, Italian">Mexican, Asian, Chinese, Italian</option>
+              <option value="Chinese, Italian, Mexican, Asian, Beverages">Chinese, Italian, Mexican, Asian, Beverages</option>
+              <option value="Cafe, North Indian">Cafe, North Indian</option>
+              <option value="Chinese, Street Food, Fast Food">Chinese, Street Food, Fast Food</option>
+              <option value="North Indian, Fast Food, Beverages">North Indian, Fast Food, Beverages</option>
+              <option value="Ice Cream, Desserts, Beverages">Ice Cream, Desserts, Beverages</option>
+              <option value="Juices, Beverages">Juices, Beverages</option>
+              <option value="Fast Food, Beverages">Fast Food, Beverages</option>
+              <option value="Burger, Fast Food, Beverages">Burger, Fast Food, Beverages</option>
+              <option value="Mithai, North Indian, South Indian, Chinese, Fast Food, Beverages">Mithai, North Indian, South Indian, Chinese, Fast Food, Beverages</option>
+              <option value="South Indian, Chinese, Fast Food">South Indian, Chinese, Fast Food</option>
+              <option value="North Indian, South Indian, Fast Food, Chinese">North Indian, South Indian, Fast Food, Chinese</option>
+              <option value="Fast Food, Bakery">Fast Food, Bakery</option>
+              <option value="Biryani, Hyderabadi, Fast Food, Desserts, Beverages, Kebab">Biryani, Hyderabadi, Fast Food, Desserts, Beverages, Kebab</option>
+              <option value="Biryani, Mughlai, Kebab, Hyderabadi">Biryani, Mughlai, Kebab, Hyderabadi</option>
+              <option value="North Indian, Mughlai, Lucknowi">North Indian, Mughlai, Lucknowi</option>
+              <option value="North Indian, Mughlai, Biryani">North Indian, Mughlai, Biryani</option>
+              <option value="Biryani, North Indian, Mughlai">Biryani, North Indian, Mughlai</option>
+              <option value="Biryani, Hyderabadi">Biryani, Hyderabadi</option>
+              <option value="North Indian, Chinese, South Indian, Fast Food">North Indian, Chinese, South Indian, Fast Food</option>
+              <option value="Chinese, Fast Food">Chinese, Fast Food</option>
+              <option value="North Indian, Chinese, South Indian">North Indian, Chinese, South Indian</option>
+              <option value="Cafe, Coffee">Cafe, Coffee</option>
+              <option value="Street Food, Fast Food, South Indian">Street Food, Fast Food, South Indian</option>
+              <option value="Cafe, Chinese, Street Food, Momos, South Indian, Beverages">Cafe, Chinese, Street Food, Momos, South Indian, Beverages</option>
+              <option value="Cafe, Pizza">Cafe, Pizza</option>
+              <option value="Bakery, Fast Food">Bakery, Fast Food</option>
+              <option value="Ice Cream, Beverages">Ice Cream, Beverages</option>
+              <option value="Cafe, Bakery">Cafe, Bakery</option>
+              <option value="Cafe, Bakery, North Indian">Cafe, Bakery, North Indian</option>
+              <option value="Cafe, Italian, Fast Food, Beverages">Cafe, Italian, Fast Food, Beverages</option>
+              <option value="Cafe, Continental, North Indian, Italian, Beverages">Cafe, Continental, North Indian, Italian, Beverages</option>
+              <option value="Bakery, Fast Food, Beverages">Bakery, Fast Food, Beverages</option>
+              <option value="Cafe, Fast Food, North Indian, Desserts">Cafe, Fast Food, North Indian, Desserts</option>
+              <option value="North Indian, South Indian, Chinese, Fast Food">North Indian, South Indian, Chinese, Fast Food</option>
+              <option value="Burger, Fast Food">Burger, Fast Food</option>
+              <option value="Burger">Burger</option>
+              <option value="Fast Food, North Indian">Fast Food, North Indian</option>
+              <option value="Fast Food, Burger">Fast Food, Burger</option>
+              <option value="Cafe, Continental, Thai">Cafe, Continental, Thai</option>
+              <option value="Cafe, Chinese, Fast Food, Beverages">Cafe, Chinese, Fast Food, Beverages</option>
+              <option value="Cafe, Fast Food">Cafe, Fast Food</option>
+              <option value="North Indian, South Indian, Chinese, Beverages">North Indian, South Indian, Chinese, Beverages</option>
+              <option value="Fast Food, South Indian, North Indian, Chinese">Fast Food, South Indian, North Indian, Chinese</option>
+              <option value="Rolls, Fast Food, North Indian, Chinese, Mughlai, Momos, Beverages">Rolls, Fast Food, North Indian, Chinese, Mughlai, Momos, Beverages</option>
+              <option value="Cafe, Beverages, Sandwich, Fast Food, Desserts">Cafe, Beverages, Sandwich, Fast Food, Desserts</option>
+              <option value="Continental, Italian, North Indian">Continental, Italian, North Indian</option>
+              <option value="Chinese, South Indian">Chinese, South Indian</option>
+              <option value="Cafe, Italian, Fast Food, North Indian, Chinese">Cafe, Italian, Fast Food, North Indian, Chinese</option>
+              <option value="Cafe, Italian, Continental">Cafe, Italian, Continental</option>
+              <option value="Cafe, Chinese">Cafe, Chinese</option>
+              <option value="Fast Food, Pizza">Fast Food, Pizza</option>
+              <option value="Cafe, North Indian, South Indian, Beverages">Cafe, North Indian, South Indian, Beverages</option>
+              <option value="Bakery">Bakery</option>
+              <option value="Bakery, Desserts">Bakery, Desserts</option>
+              <option value="Desserts, Bakery">Desserts, Bakery</option>
+              <option value="Bakery, Street Food, Fast Food, Chinese">Bakery, Street Food, Fast Food, Chinese</option>
+              <option value="Chinese, North Indian, Italian, Mexican">Chinese, North Indian, Italian, Mexican</option>
+              <option value="North Indian, Mexican, Chinese">North Indian, Mexican, Chinese</option>
+              <option value="South Indian, North Indian, Chinese">South Indian, North Indian, Chinese</option>
+              <option value="Street Food, Fast Food, South Indian, Chinese, Beverages">Street Food, Fast Food, South Indian, Chinese, Beverages</option>
+              <option value="Cafe, Fast Food, Beverages">Cafe, Fast Food, Beverages</option>
+              <option value="Tea, Sandwich, Fast Food, Beverages">Tea, Sandwich, Fast Food, Beverages</option>
+              <option value="Tea, Beverages, Fast Food, Chinese">Tea, Beverages, Fast Food, Chinese</option>
+              <option value="Cafe, Fast Food, Italian, Beverages">Cafe, Fast Food, Italian, Beverages</option>
+              <option value="Street Food, Beverages">Street Food, Beverages</option>
+              <option value="Chinese, Asian, Thai">Chinese, Asian, Thai</option>
+              <option value="Chinese, South Indian, Fast Food">Chinese, South Indian, Fast Food</option>
+              <option value="South Indian, North Indian, Chinese, Rajasthani, Fast Food">South Indian, North Indian, Chinese, Rajasthani, Fast Food</option>
+              <option value="North Indian, Chinese, Fast Food">North Indian, Chinese, Fast Food</option>
+              <option value="North Indian, Mughlai, Chinese">North Indian, Mughlai, Chinese</option>
+              <option value="North Indian, Chinese, Mughlai">North Indian, Chinese, Mughlai</option>
+              <option value="Mithai, North Indian, Fast Food, Street Food">Mithai, North Indian, Fast Food, Street Food</option>
+              <option value="North Indian, South Indian, Chinese, Italian">North Indian, South Indian, Chinese, Italian</option>
+              <option value="North Indian, Chinese, Rolls">North Indian, Chinese, Rolls</option>
+              <option value="Continental, Italian, Mexican, Chinese">Continental, Italian, Mexican, Chinese</option>
+              <option value="North Indian, South Indian, Chinese">North Indian, South Indian, Chinese</option>
+              <option value="Chinese, Fast Food, South Indian, North Indian">Chinese, Fast Food, South Indian, North Indian</option>
+              <option value="Mughlai, North Indian">Mughlai, North Indian</option>
+              <option value="Chinese, North Indian, Pizza, Rolls">Chinese, North Indian, Pizza, Rolls</option>
+              <option value="Chinese, North Indian">Chinese, North Indian</option>
+              <option value="Chinese">Chinese</option>
+              <option value="Cafe, North Indian, Fast Food, South Indian">Cafe, North Indian, Fast Food, South Indian</option>
+              <option value="North Indian, South Indian">North Indian, South Indian</option>
+              <option value="Momos, Chinese">Momos, Chinese</option>
+              <option value="Rajasthani">Rajasthani</option>
+              <option value="North Indian, Continental, Italian, Chinese, Mexican">North Indian, Continental, Italian, Chinese, Mexican</option>
+              <option value="North Indian, South Indian, Fast Food, Beverages">North Indian, South Indian, Fast Food, Beverages</option>
+              <option value="North Indian, Fast Food, Finger Food">North Indian, Fast Food, Finger Food</option>
+              <option value="North Indian, Chinese, Italian">North Indian, Chinese, Italian</option>
+              <option value="Cafe, Beverages">Cafe, Beverages</option>
+              <option value="Chinese, North Indian, Fast Food">Chinese, North Indian, Fast Food</option>
+              <option value="North Indian, Mughlai, Fast Food">North Indian, Mughlai, Fast Food</option>
+              <option value="North Indian, Chinese, Italian, Beverages, Ice Cream">North Indian, Chinese, Italian, Beverages, Ice Cream</option>
+              <option value="Cafe, Continental, Beverages">Cafe, Continental, Beverages</option>
+              <option value="Cafe, Italian, Chinese, North Indian">Cafe, Italian, Chinese, North Indian</option>
+              <option value="Fast Food, Tea, Beverages">Fast Food, Tea, Beverages</option>
+              <option value="Mughlai, Lucknowi, North Indian, Biryani, Beverages">Mughlai, Lucknowi, North Indian, Biryani, Beverages</option>
+              <option value="Cafe, Fast Food, North Indian, South Indian, Italian, Continental">Cafe, Fast Food, North Indian, South Indian, Italian, Continental</option>
+              <option value="Fast Food, Chinese">Fast Food, Chinese</option>
+              <option value="Street Food, North Indian">Street Food, North Indian</option>
+              <option value="North Indian, Chinese, Rajasthani">North Indian, Chinese, Rajasthani</option>
+              <option value="Fast Food, Street Food">Fast Food, Street Food</option>
+              <option value="Continental, Fast Food, North Indian, Beverages">Continental, Fast Food, North Indian, Beverages</option>
+              <option value="North Indian, Fast Food, Chinese, Street Food, Rajasthani, Mughlai">North Indian, Fast Food, Chinese, Street Food, Rajasthani, Mughlai</option>
+              <option value="Fast Food, Pizza, Beverages">Fast Food, Pizza, Beverages</option>
+              <option value="Pizza, Fast Food">Pizza, Fast Food</option>
+              <option value="Italian, North Indian, Mexican">Italian, North Indian, Mexican</option>
+              <option value="South Indian, Fast Food">South Indian, Fast Food</option>
+              <option value="Chinese, Pizza, Burger">Chinese, Pizza, Burger</option>
+              <option value="Cafe, Chinese, North Indian">Cafe, Chinese, North Indian</option>
+              <option value="Chinese, Thai, Momos, Seafood">Chinese, Thai, Momos, Seafood</option>
+              <option value="North Indian, Chinese, Beverages">North Indian, Chinese, Beverages</option>
+              <option value="Street Food">Street Food</option>
+              <option value="Fast Food, North Indian, Rolls">Fast Food, North Indian, Rolls</option>
+              <option value="Fast Food, Pizza, North Indian">Fast Food, Pizza, North Indian</option>
+              <option value="Fast Food, Rajasthani">Fast Food, Rajasthani</option>
+              <option value="North Indian, Street Food, South Indian, Chinese, Beverages">North Indian, Street Food, South Indian, Chinese, Beverages</option>
+              <option value="Kerala">Kerala</option>
+              <option value="Continental, Italian, Burger, Pizza, Beverages">Continental, Italian, Burger, Pizza, Beverages</option>
+              <option value="North Indian, Italian, Chinese, South Indian, Beverages">North Indian, Italian, Chinese, South Indian, Beverages</option>
+              <option value="Healthy Food, Salad, Juices, Continental">Healthy Food, Salad, Juices, Continental</option>
+              <option value="Cafe, Fast Food, North Indian, Chinese, Italian, Continental">Cafe, Fast Food, North Indian, Chinese, Italian, Continental</option>
+              <option value="Fast Food, North Indian, Chinese, South Indian, Street Food, Ice Cream, Beverages">Fast Food, North Indian, Chinese, South Indian, Street Food, Ice Cream, Beverages</option>
+              <option value="Fast Food, North Indian, Street Food, Chinese">Fast Food, North Indian, Street Food, Chinese</option>
+              <option value="South Indian, North Indian, Chinese, Street Food">South Indian, North Indian, Chinese, Street Food</option>
+              <option value="North Indian, Italian, Continental">North Indian, Italian, Continental</option>
+              <option value="Fast Food, Chinese, Italian">Fast Food, Chinese, Italian</option>
+              <option value="Fast Food, Chinese, South Indian">Fast Food, Chinese, South Indian</option>
+              <option value="North Indian, Fast Food, Chinese, Street Food">North Indian, Fast Food, Chinese, Street Food</option>
+              <option value="Fast Food, Chinese, North Indian">Fast Food, Chinese, North Indian</option>
+              <option value="Bakery, Cafe, Desserts">Bakery, Cafe, Desserts</option>
+              <option value="Continental, Italian, North Indian, Beverages">Continental, Italian, North Indian, Beverages</option>
+              <option value="Fast Food, Italian, Beverages">Fast Food, Italian, Beverages</option>
+              <option value="Fast Food, Chinese, Beverages">Fast Food, Chinese, Beverages</option>
+              <option value="Fast Food, Wraps, Desserts, Beverages">Fast Food, Wraps, Desserts, Beverages</option>
+              <option value="Fast Food, Chinese, Bakery">Fast Food, Chinese, Bakery</option>
+              <option value="North Indian, Chinese, Italian, Mexican, Fast Food">North Indian, Chinese, Italian, Mexican, Fast Food</option>
+              <option value="North Indian, Chinese, Beverages, Fast Food">North Indian, Chinese, Beverages, Fast Food</option>
+              <option value="Beverages, Healthy Food, Fast Food">Beverages, Healthy Food, Fast Food</option>
+              <option value="North Indian, Fast Food, Street Food, Beverages">North Indian, Fast Food, Street Food, Beverages</option>
+              <option value="Healthy Food, North Indian, Fast Food">Healthy Food, North Indian, Fast Food</option>
+              <option value="Beverages">Beverages</option>
+              <option value="Mithai, Rajasthani, Street Food">Mithai, Rajasthani, Street Food</option>
+              <option value="North Indian, South Indian, Chinese, Biryani">North Indian, South Indian, Chinese, Biryani</option>
+              <option value="Bakery, Desserts, Cafe">Bakery, Desserts, Cafe</option>
+              <option value="Bakery, Chinese, North Indian">Bakery, Chinese, North Indian</option>
+              <option value="Desserts, Ice Cream, Beverages">Desserts, Ice Cream, Beverages</option>
+              <option value="Ice Cream">Ice Cream</option>
+              <option value="Healthy Food, Salad">Healthy Food, Salad</option>
+              <option value="South Indian, Street Food">South Indian, Street Food</option>
+              <option value="Street Food, Fast Food">Street Food, Fast Food</option>
+              <option value="Pizza, Fast Food, Chinese">Pizza, Fast Food, Chinese</option>
+              <option value="North Indian, South Indian, Rajasthani, Fast Food">North Indian, South Indian, Rajasthani, Fast Food</option>
+              <option value="North Indian, Fast Food, South Indian">North Indian, Fast Food, South Indian</option>
+              <option value="North Indian, Chinese, Italian, Mexican, Continental">North Indian, Chinese, Italian, Mexican, Continental</option>
+              <option value="Pizza, Burger, Fast Food">Pizza, Burger, Fast Food</option>
+              <option value="Tea, Beverages, Fast Food">Tea, Beverages, Fast Food</option>
+              <option value="Tea, Street Food">Tea, Street Food</option>
+              <option value="North Indian, South Indian, Italian">North Indian, South Indian, Italian</option>
+              <option value="Fast Food, South Indian, Chinese, Beverages">Fast Food, South Indian, Chinese, Beverages</option>
+              <option value="Fast Food, North Indian, Chinese, Beverages">Fast Food, North Indian, Chinese, Beverages</option>
+              <option value="North Indian, Italian, Continental, Chinese, BBQ">North Indian, Italian, Continental, Chinese, BBQ</option>
+              <option value="North Indian, Mughlai, Kebab">North Indian, Mughlai, Kebab</option>
+              <option value="North Indian, Chinese, Mughlai, Italian, Beverages">North Indian, Chinese, Mughlai, Italian, Beverages</option>
+              <option value="Desserts">Desserts</option>
+              <option value="Ice Cream, Beverages, Desserts">Ice Cream, Beverages, Desserts</option>
+              <option value="Chinese, Beverages, Italian, Pizza, Street Food, Sandwich, Burger">Chinese, Beverages, Italian, Pizza, Street Food, Sandwich, Burger</option>
+              <option value="North Indian, Chinese, Mughlai, Fast Food">North Indian, Chinese, Mughlai, Fast Food</option>
+              <option value="North Indian, Chinese, Fast Food, Italian">North Indian, Chinese, Fast Food, Italian</option>
+              <option value="Fast Food, North Indian, Beverages">Fast Food, North Indian, Beverages</option>
+              <option value="North Indian, Chinese, South Indian, Rajasthani, Fast Food">North Indian, Chinese, South Indian, Rajasthani, Fast Food</option>
+              <option value="South Indian, Beverages">South Indian, Beverages</option>
+              <option value="Cafe, Continental, Fast Food">Cafe, Continental, Fast Food</option>
+              <option value="Continental, North Indian, Chinese, Italian">Continental, North Indian, Chinese, Italian</option>
+              <option value="Bar Food, North Indian, Chinese">Bar Food, North Indian, Chinese</option>
+              <option value="North Indian, Fast Food, Chinese, Beverages">North Indian, Fast Food, Chinese, Beverages</option>
+              <option value="Chinese, Fast Food, North Indian">Chinese, Fast Food, North Indian</option>
+              <option value="Cafe, Fast Food, Chinese, Street Food, Desserts, Beverages">Cafe, Fast Food, Chinese, Street Food, Desserts, Beverages</option>
+              <option value="Biryani, Chinese, North Indian">Biryani, Chinese, North Indian</option>
+              <option value="Biryani, South Indian, North Indian, Chinese">Biryani, South Indian, North Indian, Chinese</option>
+              <option value="Biryani, North Indian, South Indian">Biryani, North Indian, South Indian</option>
+              <option value="Biryani, Andhra">Biryani, Andhra</option>
+              <option value="Fast Food, Pizza, Burger, Beverages">Fast Food, Pizza, Burger, Beverages</option>
+              <option value="Chinese, Thai, Momos">Chinese, Thai, Momos</option>
+              <option value="Thai, Chinese, Seafood">Thai, Chinese, Seafood</option>
+              <option value="Beverages, Juices">Beverages, Juices</option>
+              <option value="Healthy Food, Continental, Seafood">Healthy Food, Continental, Seafood</option>
+              <option value="North Indian, Continental, Chinese, Italian, Desserts, Beverages">North Indian, Continental, Chinese, Italian, Desserts, Beverages</option>
+              <option value="Raw Meats, North Indian, Chinese">Raw Meats, North Indian, Chinese</option>
+              <option value="Fast Food, South Indian, Chinese">Fast Food, South Indian, Chinese</option>
+              <option value="Bakery, Fast Food, South Indian">Bakery, Fast Food, South Indian</option>
+              <option value="North Indian, Mughlai, Raw Meats">North Indian, Mughlai, Raw Meats</option>
+              <option value="North Indian, South Indian, Beverages, Chinese">North Indian, South Indian, Beverages, Chinese</option>
+              <option value="Chinese, North Indian, South Indian">Chinese, North Indian, South Indian</option>
+              <option value="Italian, Sandwich, Salad, Asian, Beverages, Desserts">Italian, Sandwich, Salad, Asian, Beverages, Desserts</option>
+              <option value="Desserts, Ice Cream">Desserts, Ice Cream</option>
+              <option value="North Indian, Chinese, Fast Food, South Indian, Beverages">North Indian, Chinese, Fast Food, South Indian, Beverages</option>
+              <option value="North Indian, Mithai, Street Food">North Indian, Mithai, Street Food</option>
+              <option value="Cafe, South Indian, North Indian">Cafe, South Indian, North Indian</option>
+              <option value="Juices, Fast Food">Juices, Fast Food</option>
+              <option value="Cafe, Desserts, Fast Food">Cafe, Desserts, Fast Food</option>
+              <option value="Afghan, Mughlai">Afghan, Mughlai</option>
+              <option value="Sandwich, Fast Food, Beverages">Sandwich, Fast Food, Beverages</option>
+              <option value="Sandwich, Fast Food, Beverages, Cafe">Sandwich, Fast Food, Beverages, Cafe</option>
+              <option value="North Indian, South Indian, Street Food">North Indian, South Indian, Street Food</option>
+              <option value="North Indian, South Indian, Italian, Chinese, Mexican, Fast Food, Beverages">North Indian, South Indian, Italian, Chinese, Mexican, Fast Food, Beverages</option>
+              <option value="Mithai, North Indian, South Indian, Chinese, Fast Food, Street Food, Beverages">Mithai, North Indian, South Indian, Chinese, Fast Food, Street Food, Beverages</option>
+              <option value="Mithai, North Indian, Street Food, South Indian, Chinese">Mithai, North Indian, Street Food, South Indian, Chinese</option>
+              <option value="Mithai, Fast Food, South Indian, North Indian, Chinese, Street Food, Beverages">Mithai, Fast Food, South Indian, North Indian, Chinese, Street Food, Beverages</option>
+              <option value="North Indian, Fast Food, Chinese, South Indian, Beverages">North Indian, Fast Food, Chinese, South Indian, Beverages</option>
+              <option value="Mithai, Street Food">Mithai, Street Food</option>
+              <option value="Mithai, Street Food, North Indian, South Indian">Mithai, Street Food, North Indian, South Indian</option>
+              <option value="North Indian, South Indian, Fast Food, Mithai">North Indian, South Indian, Fast Food, Mithai</option>
+              <option value="North Indian, Fast Food, Chinese, Mughlai">North Indian, Fast Food, Chinese, Mughlai</option>
+              <option value="Mughlai, North Indian, Rolls, Beverages">Mughlai, North Indian, Rolls, Beverages</option>
+              <option value="North Indian, Fast Food, Chinese, South Indian">North Indian, Fast Food, Chinese, South Indian</option>
+              <option value="Rolls, North Indian, Chinese, Fast Food, Pizza, Beverages">Rolls, North Indian, Chinese, Fast Food, Pizza, Beverages</option>
+              <option value="North Indian, Italian">North Indian, Italian</option>
+              <option value="North Indian, Kebab">North Indian, Kebab</option>
+              <option value="North Indian, Mughlai, Chinese, Rolls, Kebab">North Indian, Mughlai, Chinese, Rolls, Kebab</option>
+              <option value="Mithai">Mithai</option>
+              <option value="Beverages, Desserts, Ice Cream">Beverages, Desserts, Ice Cream</option>
+              <option value="Bakery, Sandwich, Pizza, Fast Food">Bakery, Sandwich, Pizza, Fast Food</option>
+              <option value="North Indian, Chinese, Biryani">North Indian, Chinese, Biryani</option>
+              <option value="North Indian, Rolls">North Indian, Rolls</option>
+              <option value="Mithai, Fast Food, Street Food, South Indian">Mithai, Fast Food, Street Food, South Indian</option>
+              <option value="Fast Food, North Indian, South Indian, Beverages">Fast Food, North Indian, South Indian, Beverages</option>
+              <option value="Chinese, North Indian, South Indian, Pizza">Chinese, North Indian, South Indian, Pizza</option>
+              <option value="Healthy Food, Fast Food">Healthy Food, Fast Food</option>
+              <option value="Italian, European, Continental">Italian, European, Continental</option>
+              <option value="Italian">Italian</option>
+              <option value="Italian, Pizza">Italian, Pizza</option>
+              <option value="Pizza">Pizza</option>
+              <option value="North Indian, Chinese, South Indian, Continental, Beverages">North Indian, Chinese, South Indian, Continental, Beverages</option>
+              <option value="Biryani, Burger, Fast Food">Biryani, Burger, Fast Food</option>
+              <option value="North Indian, Chinese, South Indian, Street Food, Fast Food, Beverages">North Indian, Chinese, South Indian, Street Food, Fast Food, Beverages</option>
+              <option value="Street Food, South Indian">Street Food, South Indian</option>
+              <option value="North Indian, Mithai, Rajasthani, South Indian, Chinese">North Indian, Mithai, Rajasthani, South Indian, Chinese</option>
+              <option value="Mithai, North Indian, South Indian, Fast Food">Mithai, North Indian, South Indian, Fast Food</option>
+              <option value="Biryani">Biryani</option>
+              <option value="Italian, Continental">Italian, Continental</option>
+              <option value="North Indian, Chinese, Italian, Fast Food, Street Food">North Indian, Chinese, Italian, Fast Food, Street Food</option>
+              <option value="North Indian, Fast Food, Sandwich, Beverages">North Indian, Fast Food, Sandwich, Beverages</option>
+              <option value="North Indian, Chinese, Kebab">North Indian, Chinese, Kebab</option>
+              <option value="Healthy Food, Beverages">Healthy Food, Beverages</option>
+              <option value="Italian, Mexican, Beverages">Italian, Mexican, Beverages</option>
+              <option value="Beverages, Fast Food, Street Food">Beverages, Fast Food, Street Food</option>
+              <option value="Italian, North Indian, Chinese, Mexican">Italian, North Indian, Chinese, Mexican</option>
+              <option value="Fast Food, Burger, Beverages">Fast Food, Burger, Beverages</option>
+              <option value="North Indian, Chinese, Fast Food, Lebanese, Beverages, Desserts">North Indian, Chinese, Fast Food, Lebanese, Beverages, Desserts</option>
+              <option value="North Indian, South Indian, Fast Food, Rajasthani">North Indian, South Indian, Fast Food, Rajasthani</option>
+              <option value="North Indian, Chinese, Fast Food, South Indian">North Indian, Chinese, Fast Food, South Indian</option>
+              <option value="Cafe, North Indian, Healthy Food, Pizza, Beverages, Desserts">Cafe, North Indian, Healthy Food, Pizza, Beverages, Desserts</option>
+              <option value="Bakery, Desserts, Fast Food, Pizza">Bakery, Desserts, Fast Food, Pizza</option>
+              <option value="Mithai, North Indian">Mithai, North Indian</option>
+              <option value="Mithai, Rajasthani">Mithai, Rajasthani</option>
+              <option value="Mithai, Fast Food">Mithai, Fast Food</option>
+              <option value="Beverages, Desserts, Fast Food">Beverages, Desserts, Fast Food</option>
+              <option value="Chinese, Momos, Beverages">Chinese, Momos, Beverages</option>
+              <option value="Chinese, Asian, Sushi">Chinese, Asian, Sushi</option>
+              <option value="North Indian, Mexican, Italian, Chinese">North Indian, Mexican, Italian, Chinese</option>
+              <option value="Mithai, Fast Food, North Indian">Mithai, Fast Food, North Indian</option>
+              <option value="Momos, Chinese, Fast Food">Momos, Chinese, Fast Food</option>
+              <option value="Chinese, Fast Food, North Indian, Seafood">Chinese, Fast Food, North Indian, Seafood</option>
+              <option value="Chinese, Fast Food, Momos, Rolls, Beverages">Chinese, Fast Food, Momos, Rolls, Beverages</option>
+              <option value="Chinese, Fast Food, Momos">Chinese, Fast Food, Momos</option>
+              <option value="North Indian, South Indian, Fast Food">North Indian, South Indian, Fast Food</option>
+              <option value="North Indian, Rajasthani, Mughlai, Fast Food">North Indian, Rajasthani, Mughlai, Fast Food</option>
+              <option value="North Indian, Chinese, Fast Food, Street Food, Desserts, Beverages">North Indian, Chinese, Fast Food, Street Food, Desserts, Beverages</option>
+              <option value="Mithai, Street Food, Fast Food">Mithai, Street Food, Fast Food</option>
+              <option value="North Indian, Fast Food, Street Food, Chinese, Beverages">North Indian, Fast Food, Street Food, Chinese, Beverages</option>
+              <option value="North Indian, Chinese, Fast Food, Desserts, Beverages">North Indian, Chinese, Fast Food, Desserts, Beverages</option>
+              <option value="Fast Food, South Indian, Chinese, North Indian, Beverages">Fast Food, South Indian, Chinese, North Indian, Beverages</option>
+              <option value="Bakery, Fast Food, Chinese">Bakery, Fast Food, Chinese</option>
+              <option value="North Indian, Continental, Chinese, Italian">North Indian, Continental, Chinese, Italian</option>
+              <option value="North Indian, Rolls, Fast Food, Chinese, Mughlai, Momos, Beverages">North Indian, Rolls, Fast Food, Chinese, Mughlai, Momos, Beverages</option>
+              <option value="North Indian, Rajasthani, Salad, Street Food, Desserts">North Indian, Rajasthani, Salad, Street Food, Desserts</option>
+              <option value="Cafe, North Indian, Mexican, Fast Food">Cafe, North Indian, Mexican, Fast Food</option>
+              <option value="Beverages, Fast Food, South Indian">Beverages, Fast Food, South Indian</option>
+              <option value="North Indian, South Indian, Fast Food, Desserts">North Indian, South Indian, Fast Food, Desserts</option>
+              <option value="North Indian, Chinese, Continental, Rajasthani">North Indian, Chinese, Continental, Rajasthani</option>
+              <option value="Cafe, Momos, Bubble Tea, Chinese, Beverages">Cafe, Momos, Bubble Tea, Chinese, Beverages</option>
+              <option value="Cafe, North Indian, Fast Food, Chinese, Street Food">Cafe, North Indian, Fast Food, Chinese, Street Food</option>
+              <option value="Kebab, BBQ, Burger">Kebab, BBQ, Burger</option>
+              <option value="Healthy Food, Fast Food, Beverages">Healthy Food, Fast Food, Beverages</option>
+              <option value="Fast Food, Healthy Food, Salad, Sandwich">Fast Food, Healthy Food, Salad, Sandwich</option>
+              <option value="North Indian, Rolls, Fast Food, Beverages">North Indian, Rolls, Fast Food, Beverages</option>
+              <option value="North Indian, Chinese, Continental">North Indian, Chinese, Continental</option>
+              <option value="North Indian, Fast Food, Chinese, Desserts, Beverages">North Indian, Fast Food, Chinese, Desserts, Beverages</option>
+              <option value="Bakery, Mithai, Street Food, Fast Food">Bakery, Mithai, Street Food, Fast Food</option>
+              <option value="Fast Food, North Indian, Chinese">Fast Food, North Indian, Chinese</option>
+              <option value="Fast Food, Chinese, Street Food, Rolls, Sandwich, Beverages">Fast Food, Chinese, Street Food, Rolls, Sandwich, Beverages</option>
+              <option value="Pizza, Fast Food, Beverages">Pizza, Fast Food, Beverages</option>
+              <option value="Cafe, Continental, Mexican, Italian, Desserts, Beverages">Cafe, Continental, Mexican, Italian, Desserts, Beverages</option>
+              <option value="North Indian, Chinese, Continental, Mughlai">North Indian, Chinese, Continental, Mughlai</option>
+              <option value="Mughlai, North Indian, Rolls">Mughlai, North Indian, Rolls</option>
+              <option value="Fast Food, Chinese, Ice Cream">Fast Food, Chinese, Ice Cream</option>
+              <option value="Fast Food, South Indian, Pizza, Street Food, Chinese, Momos, North Indian">Fast Food, South Indian, Pizza, Street Food, Chinese, Momos, North Indian</option>
+              <option value="Healthy Food">Healthy Food</option>
+              <option value="North Indian, Mughlai, Rolls">North Indian, Mughlai, Rolls</option>
+              <option value="Italian, Mexican, North Indian">Italian, Mexican, North Indian</option>
+              <option value="Mithai, Bakery">Mithai, Bakery</option>
+              <option value="Italian, Continental, Mexican, Cafe">Italian, Continental, Mexican, Cafe</option>
+              <option value="Italian, Chinese, North Indian, Fast Food, Beverages">Italian, Chinese, North Indian, Fast Food, Beverages</option>
+              <option value="Cafe, Bakery, Continental, Italian">Cafe, Bakery, Continental, Italian</option>
+              <option value="Cafe, Continental, Fast Food, Italian, Street Food, Wraps, Salad, Beverages">Cafe, Continental, Fast Food, Italian, Street Food, Wraps, Salad, Beverages</option>
+              <option value="North Indian, Mughlai, Desserts, Beverages">North Indian, Mughlai, Desserts, Beverages</option>
+              <option value="North Indian, Fast Food, Chinese, Rajasthani, Beverages">North Indian, Fast Food, Chinese, Rajasthani, Beverages</option>
+              <option value="South Indian, Chinese, Fast Food, North Indian">South Indian, Chinese, Fast Food, North Indian</option>
+              <option value="Fast Food, Street Food, Sandwich, Beverages">Fast Food, Street Food, Sandwich, Beverages</option>
+              <option value="Beverages, South Indian">Beverages, South Indian</option>
+              <option value="Street Food, Fast Food, North Indian">Street Food, Fast Food, North Indian</option>
+              <option value="South Indian, Chinese, Fast Food, Street Food">South Indian, Chinese, Fast Food, Street Food</option>
+              <option value="North Indian, Sandwich">North Indian, Sandwich</option>
+              <option value="North Indian, Rolls, Beverages">North Indian, Rolls, Beverages</option>
+              <option value="Italian, Fast Food, Beverages">Italian, Fast Food, Beverages</option>
+              <option value="South Indian, Italian, Street Food">South Indian, Italian, Street Food</option>
+              <option value="North Indian, Chinese, Mughlai, South Indian">North Indian, Chinese, Mughlai, South Indian</option>
+              <option value="Fast Food, Chinese, Pizza">Fast Food, Chinese, Pizza</option>
+              <option value="North Indian, Italian, Chinese, Fast Food">North Indian, Italian, Chinese, Fast Food</option>
+              <option value="Pizza, Burger, Fast Food, Beverages">Pizza, Burger, Fast Food, Beverages</option>
+              <option value="Pizza, Sandwich, Fast Food, Beverages">Pizza, Sandwich, Fast Food, Beverages</option>
+              <option value="Pizza, Italian">Pizza, Italian</option>
+              <option value="Pizza, Rolls, Burger">Pizza, Rolls, Burger</option>
+              <option value="Pizza, Fast Food, Finger Food, American">Pizza, Fast Food, Finger Food, American</option>
+              <option value="Pizza, Chinese, Fast Food">Pizza, Chinese, Fast Food</option>
+              <option value="North Indian, Chinese, Fast Food, Kebab">North Indian, Chinese, Fast Food, Kebab</option>
+              <option value="Cafe, Fast Food, North Indian">Cafe, Fast Food, North Indian</option>
+              <option value="Mexican, Italian, North Indian, Chinese">Mexican, Italian, North Indian, Chinese</option>
+              <option value="North Indian, Momos, Rolls">North Indian, Momos, Rolls</option>
+              <option value="North Indian, Healthy Food">North Indian, Healthy Food</option>
+              <option value="Cafe, Italian, Continental, Desserts, Beverages">Cafe, Italian, Continental, Desserts, Beverages</option>
+              <option value="North Indian, Chinese, Mexican, Italian">North Indian, Chinese, Mexican, Italian</option>
+              <option value="Fast Food, Coffee">Fast Food, Coffee</option>
+              <option value="Rajasthani, North Indian, Chinese">Rajasthani, North Indian, Chinese</option>
+              <option value="North Indian, Chinese, Rajasthani, Fast Food">North Indian, Chinese, Rajasthani, Fast Food</option>
+              <option value="North Indian, Fast Food, Biryani">North Indian, Fast Food, Biryani</option>
+              <option value="Rajasthani, Fast Food">Rajasthani, Fast Food</option>
+              <option value="Mithai, North Indian, South Indian, Chinese, Fast Food">Mithai, North Indian, South Indian, Chinese, Fast Food</option>
+              <option value="Beverages, Juices, Desserts">Beverages, Juices, Desserts</option>
+              <option value="Chinese, North Indian, Biryani">Chinese, North Indian, Biryani</option>
+              <option value="Rolls">Rolls</option>
+              <option value="Cafe, Italian, Mexican, Chinese">Cafe, Italian, Mexican, Chinese</option>
+              <option value="North Indian, South Indian, Chinese, Fast Food, Beverages">North Indian, South Indian, Chinese, Fast Food, Beverages</option>
+              <option value="Mithai, Street Food, Fast Food, Chinese">Mithai, Street Food, Fast Food, Chinese</option>
+              <option value="North Indian, Chinese, South Indian, Cafe">North Indian, Chinese, South Indian, Cafe</option>
+              <option value="North Indian, Continental, Mughlai, Fast Food, Beverages">North Indian, Continental, Mughlai, Fast Food, Beverages</option>
+              <option value="Beverages, Tea, Fast Food">Beverages, Tea, Fast Food</option>
+              <option value="Rolls, North Indian">Rolls, North Indian</option>
+              <option value="Pizza, Beverages, Fast Food">Pizza, Beverages, Fast Food</option>
+              <option value="Cafe, Sandwich, Pizza, Burger, Fast Food, Tea, Beverages">Cafe, Sandwich, Pizza, Burger, Fast Food, Tea, Beverages</option>
+              <option value="Fast Food, Street Food, North Indian">Fast Food, Street Food, North Indian</option>
+              <option value="Beverages, Street Food">Beverages, Street Food</option>
+              <option value="Beverages, Healthy Food">Beverages, Healthy Food</option>
+              <option value="North Indian, Italian, Chinese">North Indian, Italian, Chinese</option>
+              <option value="North Indian, Chinese, Italian, Kebab">North Indian, Chinese, Italian, Kebab</option>
+              <option value="North Indian, Chinese, Momos, Fast Food">North Indian, Chinese, Momos, Fast Food</option>
+              <option value="North Indian, Italian, Continental, South Indian, Beverages, Chinese">North Indian, Italian, Continental, South Indian, Beverages, Chinese</option>
+              <option value="Mughlai, Chinese">Mughlai, Chinese</option>
+              <option value="North Indian, South Indian, Chinese, Fast Food, Pizza, Beverages">North Indian, South Indian, Chinese, Fast Food, Pizza, Beverages</option>
+              <option value="Mithai, North Indian, Fast Food">Mithai, North Indian, Fast Food</option>
+              <option value="South Indian, Fast Food, North Indian">South Indian, Fast Food, North Indian</option>
+              <option value="Mithai, Street Food, South Indian, Fast Food">Mithai, Street Food, South Indian, Fast Food</option>
+              <option value="South Indian, Fast Food, North Indian, Beverages, Pizza, Chinese">South Indian, Fast Food, North Indian, Beverages, Pizza, Chinese</option>
+              <option value="Mithai, North Indian, South Indian, Fast Food, Street Food">Mithai, North Indian, South Indian, Fast Food, Street Food</option>
+              <option value="South Indian, Street Food, Chinese, Fast Food">South Indian, Street Food, Chinese, Fast Food</option>
+              <option value="Bakery, Fast Food, Street Food, South Indian">Bakery, Fast Food, Street Food, South Indian</option>
+              <option value="Bakery, Fast Food, Street Food">Bakery, Fast Food, Street Food</option>
+              <option value="Tea, Coffee, North Indian">Tea, Coffee, North Indian</option>
+              <option value="Street Food, South Indian, North Indian, Beverages">Street Food, South Indian, North Indian, Beverages</option>
+              <option value="Chinese, Rolls, North Indian, Fast Food, Desserts, Beverages">Chinese, Rolls, North Indian, Fast Food, Desserts, Beverages</option>
+              <option value="North Indian, South Indian, Chinese, Street Food, Continental">North Indian, South Indian, Chinese, Street Food, Continental</option>
+              <option value="North Indian, Chinese, Continental, Fast Food">North Indian, Chinese, Continental, Fast Food</option>
+              <option value="Momos, South Indian, Fast Food">Momos, South Indian, Fast Food</option>
+              <option value="Chinese, Fast Food, North Indian, Beverages">Chinese, Fast Food, North Indian, Beverages</option>
+              <option value="Italian, Chinese, Fast Food, North Indian, Beverages">Italian, Chinese, Fast Food, North Indian, Beverages</option>
+              <option value="North Indian, Biryani, Fast Food">North Indian, Biryani, Fast Food</option>
+              <option value="North Indian, Continental, Chinese, Italian, Fast Food, Mexican">North Indian, Continental, Chinese, Italian, Fast Food, Mexican</option>
+              <option value="Fast Food, Street Food, Beverages">Fast Food, Street Food, Beverages</option>
+              <option value="North Indian, Italian, Continental, Chinese">North Indian, Italian, Continental, Chinese</option>
+              <option value="Fast Food, Beverages, Desserts">Fast Food, Beverages, Desserts</option>
+              <option value="Mithai, Street Food, South Indian">Mithai, Street Food, South Indian</option>
+              <option value="North Indian, South Indian, Rajasthani">North Indian, South Indian, Rajasthani</option>
+              <option value="South Indian, North Indian, Chinese, Fast Food, Beverages">South Indian, North Indian, Chinese, Fast Food, Beverages</option>
+              <option value="North Indian, Chinese, Continental, Rajasthani, Fast Food, Desserts">North Indian, Chinese, Continental, Rajasthani, Fast Food, Desserts</option>
+              <option value="North Indian, South Indian, Rajasthani, Beverages">North Indian, South Indian, Rajasthani, Beverages</option>
+              <option value="Bakery, Fast Food, Desserts">Bakery, Fast Food, Desserts</option>
+              <option value="Cafe, Italian, Lebanese, Mexican, Continental, Pizza, Street Food">Cafe, Italian, Lebanese, Mexican, Continental, Pizza, Street Food</option>
+              <option value="Fast Food, Healthy Food, Sandwich, Salad">Fast Food, Healthy Food, Sandwich, Salad</option>
+              <option value="North Indian, Mughlai, South Indian">North Indian, Mughlai, South Indian</option>
+              <option value="Cafe, North Indian, Chinese, Italian, Mexican, Lebanese">Cafe, North Indian, Chinese, Italian, Mexican, Lebanese</option>
+              <option value="Street Food, Fast Food, South Indian, Bakery">Street Food, Fast Food, South Indian, Bakery</option>
+              <option value="North Indian, Mughlai, Fast Food, Beverages">North Indian, Mughlai, Fast Food, Beverages</option>
+              <option value="North Indian, Chinese, South Indian, Continental, Desserts">North Indian, Chinese, South Indian, Continental, Desserts</option>
+              <option value="Fast Food, Chinese, North Indian, Beverages">Fast Food, Chinese, North Indian, Beverages</option>
+              <option value="North Indian, Rajasthani, Chinese, Fast Food, Beverages, Desserts">North Indian, Rajasthani, Chinese, Fast Food, Beverages, Desserts</option>
+              <option value="Cafe, Fast Food, Street Food, Beverages">Cafe, Fast Food, Street Food, Beverages</option>
+              <option value="Cafe, Fast Food, Street Food">Cafe, Fast Food, Street Food</option>
+              <option value="Chinese, Fast Food, Beverages">Chinese, Fast Food, Beverages</option>
+              <option value="Cafe, Sandwich, Fast Food, Beverages">Cafe, Sandwich, Fast Food, Beverages</option>
+              <option value="Continental, Italian, Fast Food, Cafe">Continental, Italian, Fast Food, Cafe</option>
+              <option value="North Indian, Continental, Chinese, Asian">North Indian, Continental, Chinese, Asian</option>
+              <option value="Cafe, South Indian, Chinese">Cafe, South Indian, Chinese</option>
+              <option value="North Indian, Italian, Chinese, Mexican, Fast Food">North Indian, Italian, Chinese, Mexican, Fast Food</option>
+              <option value="Fast Food, Chinese, Street Food, Sandwich, Beverages">Fast Food, Chinese, Street Food, Sandwich, Beverages</option>
+              <option value="North Indian, Rajasthani, South Indian">North Indian, Rajasthani, South Indian</option>
+              <option value="North Indian, Chinese, BBQ">North Indian, Chinese, BBQ</option>
+              <option value="Italian, Beverages">Italian, Beverages</option>
+              <option value="Desserts, Beverages, Fast Food">Desserts, Beverages, Fast Food</option>
+              <option value="Fast Food, North Indian, Burger, Pizza, Italian, Chinese, Desserts, Beverages">Fast Food, North Indian, Burger, Pizza, Italian, Chinese, Desserts, Beverages</option>
+              <option value="Cafe, Fast Food, Italian, Desserts, Beverages">Cafe, Fast Food, Italian, Desserts, Beverages</option>
+              <option value="Fast Food, Chinese, Pizza, Beverages">Fast Food, Chinese, Pizza, Beverages</option>
+              <option value="Burger, Beverages">Burger, Beverages</option>
+              <option value="North Indian, Rajasthani, Chinese, Fast Food">North Indian, Rajasthani, Chinese, Fast Food</option>
+              <option value="Fast Food, Bakery, Beverages">Fast Food, Bakery, Beverages</option>
+              <option value="Cafe, Bakery, Italian">Cafe, Bakery, Italian</option>
+              <option value="Fast Food, Bakery, Desserts">Fast Food, Bakery, Desserts</option>
+              <option value="Cafe, Chinese, North Indian, Fast Food, Beverages">Cafe, Chinese, North Indian, Fast Food, Beverages</option>
+              <option value="Cafe, Fast Food, Chinese, North Indian">Cafe, Fast Food, Chinese, North Indian</option>
+              <option value="Pizza, Fast Food, Ice Cream, Beverages">Pizza, Fast Food, Ice Cream, Beverages</option>
+              <option value="North Indian, South Indian, Fast Food, Chinese, Beverages">North Indian, South Indian, Fast Food, Chinese, Beverages</option>
+              <option value="Juices, Beverages, Healthy Food, Chinese, Fast Food">Juices, Beverages, Healthy Food, Chinese, Fast Food</option>
+              <option value="North Indian, Chinese, Continental, Mexican">North Indian, Chinese, Continental, Mexican</option>
+              <option value="Fast Food, Italian, Chinese, North Indian">Fast Food, Italian, Chinese, North Indian</option>
+              <option value="Fast Food, Pizza, Italian, Chinese, Desserts, Beverages">Fast Food, Pizza, Italian, Chinese, Desserts, Beverages</option>
+              <option value="Chinese, Momos">Chinese, Momos</option>
+              <option value="Desserts, Fast Food">Desserts, Fast Food</option>
+              <option value="Cafe, North Indian, South Indian, Chinese">Cafe, North Indian, South Indian, Chinese</option>
+              <option value="Pizza, Fast Food, Chinese, Beverages">Pizza, Fast Food, Chinese, Beverages</option>
+              <option value="Pizza, Fast Food, Street Food">Pizza, Fast Food, Street Food</option>
+              <option value="Pizza, Beverages">Pizza, Beverages</option>
+              <option value="Pizza, Fast Food, Italian">Pizza, Fast Food, Italian</option>
+              <option value="Fast Food, Pizza, Italian, Beverages">Fast Food, Pizza, Italian, Beverages</option>
+              <option value="Cafe, North Indian, Italian">Cafe, North Indian, Italian</option>
+              <option value="Sandwich, Fast Food">Sandwich, Fast Food</option>
+              <option value="Fast Food, Gujarati">Fast Food, Gujarati</option>
+              <option value="Tea, Fast Food, Chinese, Momos, Italian, Burger">Tea, Fast Food, Chinese, Momos, Italian, Burger</option>
+              <option value="North Indian, Italian, Mexican, Chinese, Lebanese, Mughlai">North Indian, Italian, Mexican, Chinese, Lebanese, Mughlai</option>
+              <option value="Cafe, Fast Food, Italian, Chinese">Cafe, Fast Food, Italian, Chinese</option>
+              <option value="Cafe, Italian, Chinese, North Indian, Continental">Cafe, Italian, Chinese, North Indian, Continental</option>
+              <option value="Rolls, Fast Food">Rolls, Fast Food</option>
+              <option value="North Indian, Chinese, Italian, Mexican">North Indian, Chinese, Italian, Mexican</option>
+              <option value="South Indian, Street Food, Chinese, Italian">South Indian, Street Food, Chinese, Italian</option>
+              <option value="Fast Food, South Indian, Sandwich, Rolls">Fast Food, South Indian, Sandwich, Rolls</option>
+              <option value="North Indian, Chinese, Pizza, Beverages">North Indian, Chinese, Pizza, Beverages</option>
+              <option value="North Indian, South Indian, Chinese, Continental">North Indian, South Indian, Chinese, Continental</option>
+              <option value="South Indian, North Indian, Fast Food, Chinese, Street Food, Beverages">South Indian, North Indian, Fast Food, Chinese, Street Food, Beverages</option>
+              <option value="North Indian, Fast Food, South Indian, Beverages">North Indian, Fast Food, South Indian, Beverages</option>
+              <option value="Chinese, North Indian, South Indian, Street Food">Chinese, North Indian, South Indian, Street Food</option>
+              <option value="North Indian, South Indian, Street Food, Chinese">North Indian, South Indian, Street Food, Chinese</option>
+              <option value="North Indian, Fast Food, BBQ">North Indian, Fast Food, BBQ</option>
+              <option value="Chinese, North Indian, Continental">Chinese, North Indian, Continental</option>
+              <option value="Fast Food, Italian, Continental">Fast Food, Italian, Continental</option>
+              <option value="Cafe, Desserts">Cafe, Desserts</option>
+              <option value="Cafe, American, Italian, Mexican, Fast Food, North Indian">Cafe, American, Italian, Mexican, Fast Food, North Indian</option>
+              <option value="Juices, Fast Food, Beverages">Juices, Fast Food, Beverages</option>
+              <option value="North Indian, Chinese, American, Continental, South Indian">North Indian, Chinese, American, Continental, South Indian</option>
+              <option value="Arabian, Turkish, North Indian">Arabian, Turkish, North Indian</option>
+              <option value="Cafe, Italian, Beverages, Asian">Cafe, Italian, Beverages, Asian</option>
+            </select>
+          </div>
+          
+          <div class="col">
+            <label class="form-label">Number</label>
+            <input type="number" class="form-control" name="top-n" style="width: 150px;" placeholder="" value="{{ top_n }}">
+          </div>
+          
+          <div class="col" style="padding-top: 3%;">
+            <input type="submit" class="btn btn-primary myButton" value="   Submit   " >
+          </div>
+      </form>
+    
+      {% if trigger %}
+          <div class="article">
+            <h5>{{ restaurants }}</h5>
+          </div>
+      {% else %}
+        <div class="article">
+          <ol>
+            {% for restaurant in restaurants   %}
+              <li>
+                  <h5><b>{{ restaurant[0] }}</b>, {{ restaurant[1] }}</h5> 
+                  <b>Category</b>: {{ restaurant[2] }}<br>
+                  <b>Bar available</b>: {{ restaurant[3] }}<br>
+                  <b>Cost for two</b>: ₹{{ restaurant[4] }}<br>
+                  <b>Average dining cost</b>: {{ restaurant[5] }}<br>
+                  <hr>
+              </li>
+            {% endfor %}  
+          </ol>
+        </div>
+      {% endif %}
+
+    </div>
+
+    </body>
+  </html>
